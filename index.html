@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <!-- 반드시 닫는 body태그 바로 위에 작성 -->
+    <script>
+        console.log('안녕하세요. 반가워요!.')
+        console.log('안녕하세요. \n안녕하세요')
+
+        // 객체
+        const me = {
+                        name : 'jack',
+                        phone : '01012345678',
+                                'APPLE' : {
+                                    pad : 'IPAD PRO',
+                                    notebook : 'MACBOOK PRO'
+                                },
+                    }
+
+                    console.log(me.name)
+                    console.log(me['name'])
+                    console.log(me['APPLE'])
+                    console.log(me['APPLE'].pad)
+
+        // 배열
+        const numbers = [1, 2, 3, 4, 5]
+
+        console.log(numbers[0])
+        console.log(numbers[-1])    // 음의 정수 사용 불가능
+        console.log(numbers.length)
+        
+
+        // 함수 선언식(function declaration)
+        function 함수명(매개변수){
+            // DO something
+        }
+
+        function add(num1, num2){
+            return num1 + num2
+        }
+        add(2, 7) //  9 출력
+
+        // 함수 표현식(function expression)
+        // 변수키워드 함수명 = function(매개변수){
+            // DO something
+        // }
+        
+        const sub = function(num1, num2){
+            return num1 - num2
+        }
+
+        sub(7, 2) // 5 출력
+
+        const mySub = function nameSub(num1, num2){
+            return num1 - num2
+        }
+        mySub(1, 2) // -1 출력
+        // namaSub(1, 2) // 에러 발생
+        
+        // 할당 연산자
+        
+        let c = 0
+        c += 10 // c에 10을 더한다
+        c -= 3 // c에 3을 뺀다
+        c *= 10 // c에 10을 곱한다
+        c++ // c에 1을 더한다(증감식)
+        c-- // c에 1을 뺀다(증감식)
+        
+
+        // 비교 연산자
+
+        3 > 2 // true
+        3 < 2 // false
+        'A' < 'B' // true
+        'Z' < 'a' // true
+        '가' < '나' // true
+
+        // 동등 연산자
+        
+        const a = 1
+        const b = '1'
+
+        console.log(a == b) // true
+        console.log(a == true) // true
+
+        // 자동 형변환
+        console.log(8 * null) // 0, null은 0이다.
+        console.log('5' - 1) // 4
+        console.log('5' + 1) // 51
+        console.log('five' * 2) // NaN 불가능
+
+
+        // 일치 연산자
+        const x =  1
+        const y = '1'
+        console.log(x === y) // false
+        console.log(x === Number(y)) // true
+
+        // 논리 연산자
+        true ** false // false
+        true && true // true
+
+        false || false // false
+        false || true // true
+
+        !true // false
+
+        // 단축 평가
+        1 && 0 // 0
+        0 && 1 // 0
+        4 && 7 // 7
+
+        1 || 0 // 1
+        0 || 1 // 1
+        4 || 7 // 4
+
+        // 삼항 연산자
+        
+        true ? 1: 2 // 1
+        false ? 1: 2 // 2
+
+        const result = Math.PI > 4 ? 'yep' : 'Nope'
+        console.log(result) // Nope
+
+        // 스프레드 연산자
+
+        const number = [1, 2, 3]
+        const otheNumber = [...number, 4, 5] // [1, 2, 3, 4, 5]
+        const copyNumber = [...number] // [1, 2, 3]
+
+        const obj = {a : 1, b : 2}
+        const otherObj = {c: 3, ...obj} // {a : 1, b : 2, c : 3}
+        const copyObj = {...obj} // {a: 1, b : 2}
+
+
+        // if 조건문
+
+        const name = 'managers'
+        if(name === 'admin'){
+            console.log('관리자님 환영합니다.')
+        }else if (name === 'manager'){
+            console.log('매니저님 환영합니다.')
+        }else{
+            console.log(`${name}님 환영합니다.`)
+        }
+
+        // 반복문 while
+
+        // while(조건문){
+            // DO something
+        // }
+        
+        let i = 0
+        while(i < 6){
+            console.log(i)
+            i += 1            
+        }
+        // 0, 1, 2, 3, 4,
+
+        // 반복문 for
+        // for (초기문; 조건문; 증감문){
+            // DO something
+        // }
+
+        for(let i = 0; i < 6; i++){
+            console.log(i)
+        }
+
+        // 반복문 for...in
+        // for(variable in object){
+            // statements
+        // }
+
+        const fruits = {a : 'apple', b : 'banana'}
+
+        for(const key in fruits){
+            console.log(key) // a, b
+            console.log(fruits[key]) // apple, banana
+        }
+
+        // 반복문 for...of
+        // 반복문 for...of
+        // for(variable in object){
+            // statements
+        // }
+    
+
+        const nums = [0, 1, 2, 3]
+
+        for(const num of nums){
+            console.log(num)
+        }
+
+    </script>    
+</body>
+</html>
+
