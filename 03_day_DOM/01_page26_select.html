@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <h1 id="title">DOM 조작</h1>
+  <p class="text">querySelector</p>
+  <p class="text">querySelectorAll</p>
+
+  <ul>
+    <li>Javascript</li>
+    <li>Python</li>
+  </ul>
+  
+  <p class="test">  
+    p태그 안입니다.
+  </p>
+  
+
+  <script>
+    
+    const aTag = document.createElement('a')
+    aTag.innerText = 'google'
+    const test = document.querySelector('.test')
+    test.appendChild(aTag)
+    aTag.setAttribute('href', 'https:google.com')
+    console.log(aTag.getAttribute('href'))
+    
+  </script>
+</body>
+</html>

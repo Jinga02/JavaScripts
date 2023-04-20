@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <ul></ul>
+  <script>
+    
+  // 태그 생성
+    const liTag = document.createElement('li')
+
+  // 태그안에 컨텐츠를 작성하고
+    liTag.innerText = '과일'
+
+  // 부모 ul 태그를 가져와서
+    const ulTag = document.querySelector('ul')
+  
+  // ul 태그의 자식 요소로 추가
+    // ulTag.appendChild(liTag)
+    // ulTag.prepend(liTag)
+    // ulTag.after(liTag)
+    // ulTag.before(liTag)
+    // ulTag.insertBefore(liTag)
+
+  // ul태그의 li 요소 삭제
+    // ulTag.removeChild(liTag)
+    
+  // 과일 리스트에 과일 추가해보기
+    
+  // ul 태그 생성
+    const UL = document.createElement('ul')
+
+  // fruits 태그 생성 및 Text입력
+    const fruits = document.createElement('li')
+    fruits.innerText = '사과'
+
+  // 각 부모요소에 자식요소로 추가
+    ulTag.appendChild(UL)
+    UL.appendChild(fruits)
+  
+  </script>
+</body>
+</html>

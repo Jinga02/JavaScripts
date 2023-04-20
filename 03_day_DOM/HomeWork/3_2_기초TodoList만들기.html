@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>오늘의 Todo</h1>
+    <ul>
+
+    </ul>
+    <!-- 
+        주어진 조건에 따라 HTML file을 작성하시오. 
+        JavaScript 코드만 작성합니다.
+        querySelector, createElement, innerText, append 를 활용합니다.
+        HTML 문서의 body 태그의 마지막줄에 JavaScript를 작성합니다.
+        tip : console.log 를 활용해 중간 결과 확인
+        제목은 body 태그 안에 있습니다.
+        제목은 h1 태그이며 오늘의 Todo 글자를 포함합니다.
+        제목 아래 ul 태그와 그 하위 요소로 3개의 할 일 li 태그를 작성합니다.
+     -->
+
+     <script>
+        const Todo = ['양치하기', '공부하기', '휴식하기'];
+        const ulTag = document.querySelector('ul')
+        Todo.forEach((todo) =>{
+            const liTag = document.createElement('li');
+            liTag.innerText = todo;
+            ulTag.appendChild(liTag);
+        });
+     </script>
+</body>
+</html>

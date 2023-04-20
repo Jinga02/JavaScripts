@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .red { 
+      color: red;
+    }
+    .blue {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="red">안녕하세요</h1>
+  <div></div>
+
+  <script>
+    // a 태그를 div 태그의 자식 태그로 생성하고 삽입.
+    const aTag = document.createElement('a');
+
+    // div 태그 선택
+    const divTag = document.querySelector('div');
+    divTag.appendChild(aTag);
+    // a 태그에 "구글" 텍스트 넣기.
+    aTag.innerText = "구글";
+    // a 태그에 https:google.com 링크를 부여
+    aTag.setAttribute('href', 'https:google.com');
+    // a 태그에 폰트 사이즈를 32px로 변경. (style 변경)
+    aTag.style.fontSize = '32px';
+
+    // a 태그를 visibility 를 false로 해서 보이지 않게 설정
+    // aTag.style.visibility = 'hidden';
+    // aTag.style.display = 'none';
+
+    // a 태그에 이미지 부여
+    aTag.innerHTML = aTag.innerHTML
+    + '<img src="https://user-images.githubusercontent.com/110621233/233259958-0b73e54d-8738-4398-832c-8b1ef479199e.jpg"></img>'
+    + '안녕!'
+
+    // 기존 정의된 CSS 스타일의 '.red'를 aTag에 부여 (red라는 클래스를 aTag에 부여)
+    aTag.classList.add('red');
+    aTag.classList.add('blue'); 
+
+    // 블루 값이 있다면 빼고, 없다면 넣는다.
+    aTag.classList.toggle('blue')
+
+    // red class 속성 빼기
+    aTag.classList.remove('red')
+  </script>
+</body>
+</html>

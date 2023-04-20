@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+<script>
+    // 이곳에 코드를 작성합니다.
+
+    // a태그를 생성
+    const ssafy = document.createElement('a');
+    ssafy.innerText = 'SSAFY';
+    // body 선택
+    const bodyTag = document.querySelector('body');
+    // body의 div에 a태그 자식요소로 추가
+    bodyTag.appendChild(ssafy);
+    
+    // 링크추가 + 링크 클릭시 이동하지 않게
+    ssafy.setAttribute('href', 'https:ssafy.com')
+    ssafy.setAttribute('onclick', 'return false')
+    
+
+</script>
+</body>
+</html>
