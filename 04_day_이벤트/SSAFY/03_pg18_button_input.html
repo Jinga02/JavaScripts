@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+  <style>
+    .blue {
+      color: blue;
+    }
+  </style>
+</head>
+<body>
+  <h1></h1>
+  <button id="btn">클릭</button>
+  <input type="text" id="text-input">
+
+  <script>
+    const text = document.querySelector('#text-input') // id가 text-input인 값 text의 초기값으로 설정
+    const h1 = document.querySelector('h1') // h1태그 h1 변수 초기값으로 설정
+
+
+
+    text.addEventListener('input', function(event){ // text에 input이라는 이벤트가 발생할때마다 function 이벤트 발생 파라미터는 event
+      h1.innerText = event.target.value  // input 이벤트 발생 시 target의 value를 p에 텍스트로 삽입
+    })
+    const btn = document.querySelector('#btn')
+    btn.addEventListener('click', function(){
+      h1.classList.toggle('blue')
+    })
+  </script>
+
+</body>
+</html>
