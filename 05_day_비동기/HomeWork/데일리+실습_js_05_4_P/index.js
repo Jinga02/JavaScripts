@@ -13,6 +13,14 @@ searchBtn.addEventListener('click', () =>{
 
 });
 
+// Enter키로 submit
+function enterKey() {
+  if(window.event.keyCode==13){
+    fetchAlbums();
+    console.log('success');
+  }
+}
+
 function fetchAlbums(page = 1, limit = 10){
   // alert('확인!'); 
   
@@ -62,3 +70,4 @@ function fetchAlbums(page = 1, limit = 10){
       alert('잠시 후 다시 시도해주세요.')
     })
 }
+
