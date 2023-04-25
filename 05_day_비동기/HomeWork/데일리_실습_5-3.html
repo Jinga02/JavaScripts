@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>인기영화들</h1>
+    <ul>
+        
+    </ul>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        const API_URL = 'https://api.themoviedb.org/3/movie/popular?api_key=378ee398cd9d112a7f0446d50d2d4472&language=ko-kr&page=1'
+        // API키를 활용해 Get Popular페이지의 영화정보 받아오기
+        axios.get(API_URL)
+            .then(response => {
+                // result에 받아 온 영화정보 담기
+                const result = response.data.results
+                const ulTag = document.querySelector('ul')
+                result.forEach(results => {
+                    if(results.vote_average >= 8.0){
+                     const liTag = document.createElement('li')   
+                     liTag.innerText = `${results.title} 
+                                        점수 : ${results.vote_average}점`
+                     ulTag.appendChild(liTag)
+                    }
+                })
+            })
+                           
+            
+    </script>
+</body>
+</html>

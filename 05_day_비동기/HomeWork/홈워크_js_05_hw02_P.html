@@ -9,12 +9,19 @@
 <body>
   <script>
     console.log('Hi')
-
-    setTimeout(function () {
+    const myPromise = new Promise((resolve, reject) => {
+      setTimeout(function () {
       console.log('SSAFY')
+      resolve()
+      // reject()
     }, 3000)
-
-    console.log('Bye')
+    })
+    myPromise.then(()=>
+      console.log('Bye')
+    )
+    .catch(()=>
+      console.log('fuck')
+    );
   </script>
 </body>
 </html>
