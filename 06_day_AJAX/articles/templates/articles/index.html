@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>Articles</h1>
+  {% if request.user.is_authenticated %}
+    <a href="{% url 'articles:create' %}">CREATE</a>
+  {% endif %}
+  <hr>
+  {% for article in articles %}
+    <p>
+      <b>작성자 : <a href="{% url 'accounts:profile' article.user %}">{{ article.user }}</a></b>
+    </p>
+    <p>글 번호 : {{ article.pk }}</p>
+    <p>제목 : {{ article.title }}</p>
+    <p>내용 : {{ article.content }}</p>
+    <div>
+      <!-- 불필요해진 action과 method 속성은 삭제(요청은 axios로 대체되기 때문에) -->
+      <form class="like-forms" data-article-id="{{ article.pk }}"><!-- url에 작성할 aritcle pk 가져오기(HTML -> JavaScript)-->
+        {% csrf_token %}
+        {% if request.user in article.like_users.all %}
+          <input type="submit" value="좋아요 취소" id="like-{{ article.pk }}">
+        {% else %}
+          <input type="submit" value="좋아요" id="like-{{ article.pk }}">
+        {% endif %}
+      </form>
+    </div>
+    <a href="{% url 'articles:detail' article.pk %}">상세 페이지</a>
+    <hr>
+  {% endfor %}
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  const forms = document.querySelectorAll('.like-forms')
+  const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value
+
+  forms.forEach((form) => {
+    form.addEventListener('submit', function (event) {
+      // form요소에 이벤트 핸들러 작성 및 submit 이벤트 취소
+      event.preventDefault()
+      // url에 작성할 article pk 가져오기(HTML -> JavaScript)
+      const articleId = event.target.dataset.articleId
+      // headers: {'X-CSRFToken': csrftoken},
+      axios({
+        method: 'post',
+        // like의 urls
+        url: `/articles/${articleId}/likes/`,
+        // AJAX로 csrftoken을 보내는 방법
+        headers: {'X-CSRFToken': csrftoken},
+      })
+      .then((response) => {
+        // like 버튼을 이전에 눌렀는가? 좋아요 / 좋아요 취소를 할지 결정 (서버로 좋아요 여부 받기)
+        console.log(response.data.is_liked)
+        const isLiked = response.data.is_liked
+        const likeBtn = document.querySelector(`#like-${articleId}`)
+
+        if (isLiked === true) {
+          likeBtn.value = '좋아요 취소'
+        } else {
+          likeBtn.value = '좋아요'
+        }
+      })
+    })
+  })
+</script>
+{% endblock script %}
+

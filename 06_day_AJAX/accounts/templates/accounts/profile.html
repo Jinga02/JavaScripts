@@ -1,0 +1,96 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <h1>{{ person.username }}님의 프로필</h1>
+  <div>
+    팔로워 : <span id="followers-count">{{ person.followers.all|length }} </span> /
+    팔로잉 : <span id="followings-count">{{ person.followings.all|length }}</span>    
+  </div>
+
+  {% if request.user != person %}
+  <div>
+    <!-- 불필요해진 action과 method 속성은 삭제(요청은 axios로 대체되기 때문에) -->
+    <form id = 'follow_form' data-user-id="{{person.pk}}"> <!-- url에 작성할 user pk 가져오기(HTML -> JavaScript)-->
+      {% csrf_token %}
+      {% if request.user in person.followers.all %}
+        <button type='submit' class='btn btn-secondary'>언팔로우</button>
+      {% else %}
+      <button type='submit' class='btn btn-primary'>팔로우</button>
+      {% endif %}
+    </form>
+  <div>
+  {% endif %}
+
+  <h2>{{ person.username }}이 작성한 모든 게시글</h2>
+  {% for article in person.article_set.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+
+  <hr>
+
+  <h2>{{ person.username }}이 작성한 모든 댓글</h2>
+  {% for comment in person.comment_set.all %}
+    <div>{{ comment.content }}</div>
+  {% endfor %}
+
+  <hr>
+
+  <h2>{{ person.username }}이 좋아요 한 모든 게시글</h2>
+  {% for article in person.like_articles.all %}
+    <div>{{ article.title }}</div>
+  {% endfor %}
+
+  <a href="{% url 'articles:index' %}">back</a>
+{% endblock content %}
+
+{% block script %}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<script>
+  
+  const form = document.querySelector('#follow_form')
+  
+  form.addEventListener('submit', function(event){
+    // form요소에 이벤트 핸들러 작성 및 submit 이벤트 취소
+    event.preventDefault() 
+    // url에 작성할 user pk 가져오기(HTML -> JavaScript)
+    const userId = event.target.dataset.userId 
+    // hideen 타입으로 숨겨져있는 csrf값을 가진 input 태그 선택
+    const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value   
+    // axios 요청 준비
+    axios({
+      method : 'POST',
+      // follow의 urls
+      url : `/accounts/${userId}/follow/`, 
+      // AJAX로 csrftoken을 보내는 방법
+      headers: {'X-CSRFToken': csrftoken},
+    })
+    .then((response)=>{
+      const followersCountTag = document.querySelector('#followers-count')
+      const followingsCountTag = document.querySelector('#followings-count')
+      const isFollowed = response.data.is_followed
+      // view 함수에서 응답한 is_followed를 사용해 버튼 토글하기
+      const followBtn = document.querySelector('#follow_form > button')
+      
+      followBtn.classList.toggle('btn-secondary')
+      followBtn.classList.toggle('btn-primary')
+      
+      if (isFollowed){
+        // 팔로우 상태일때는 버튼에 언팔로우라고 떠야함
+        followBtn.innerText = '언팔로우'
+      } else{
+        // 언팔로우 상태일때는 버튼에 팔로우라고 떠야함
+        followBtn.innerText = '팔로우'
+      }
+      
+      // view 함수에서 응답한 연산 결과를 사용해 각 태그의 인원 수 값 변경하기
+      const followersCount = response.data.followers_count
+      const followingsCount = response.data.followings_count
+
+      followersCountTag.innerText = followersCount
+      followingsCountTag.innerText = followingsCount
+
+    })
+  })
+</script>
+{% endblock script %}
+
