@@ -1,46 +1,136 @@
 <!-- @format -->
 
-# Var
+## 변수 선언: var, let, const
 
-```js
+자바스크립트에서 변수를 선언하는 방법에는 `var`, `let`, `const` 세 가지가 있습니다.
+
+### var
+
+```javascript
 var name = "이름";
 var name = "이름2";
 var name = "이름3";
 var name = "이름4";
 ```
 
-값을 다른데 변수명은 같아도 에러가 없다?
-호출하면 마지막에 할당 된 변수가 나온다
-선언하지 않고 호출해도 undefined가 나옴
-재할당 재선언이 자유롭다
-우리가 작성하는 코드라인이 많아진다면? 1,000줄? 10,000줄?
+- var는 재선언이 가능하고 재할당이 가능합니다.
+- 값이 다른데 변수명은 같아도 에러가 발생하지 않습니다.
+- 호출하면 마지막에 할당된 변수의 값이 반환됩니다.
+- 선언하지 않고 호출하면 `undefined`가 반환됩니다.
+- 함수 단위 스코프를 가지기 때문에 if문과 같은 블록은 스코프를 생성하지 않습니다.
 
-# Let
+### let
 
-```js
+```javascript
 let name;
 name = "이름1";
 name = "이름2";
 name = "이름3";
 ```
 
-let은 재할당만 가능
+- let은 재할당은 가능하지만 재선언은 불가능합니다.
 
-# const
+### const
 
-```js
-const name;
-name= '이름1'
-name= '이름2'
-name= '이름3'
-
+```javascript
+const name = "이름1";
 ```
 
-const는 재선언 재할당 모두 불가능
+- const는 선언과 동시에 값을 할당해야하며, 재할당 및 재선언이 모두 불가능합니다.
 
-# scope 차이
+## 스코프 차이
 
-전역변수 사용하지말자
+변수의 스코프에 따라 변수가 접근 가능한 범위가 달라집니다.
+
+### var의 스코프
+
+```javascript
+var global = "전역";
+if (global === "전역") {
+  var global = "지역";
+  console.log(global); // 출력: 지역
+}
+console.log(global); // 출력: 지역
+```
+
+- var는 함수 단위 스코프를 가지기 때문에 if문과 같은 블록은 스코프를 생성하지 않습니다.
+
+### let과 const의 스코프
+
+```javascript
+let local = "전역";
+if (local === "전역") {
+  let local = "지역";
+  console.log(local); // 출력: 지역
+}
+console.log(local); // 출력: 전역
+```
+
+- let과 const는 블록 단위 스코프를 가지기 때문에 블록 내에서 선언된 변수는 블록 외부에서 접근할 수 없습니다.
+
+---
+
+## let과 const의 차이점
+
+### 재할당 가능 여부
+
+```javascript
+let name;
+name = "이름1";
+name = "이름2"; // 가능
+```
+
+- let은 선언 후에 변수에 다른 값을 할당할 수 있습니다. 재할당은 가능하지만 재선언은 불가능합니다.
+
+```javascript
+const name = "이름1";
+name = "이름2"; // TypeError: Assignment to constant variable.
+```
+
+- const는 한 번 값을 할당하면 재할당이 불가능합니다. 따라서 const로 선언한 변수에는 다른 값이 할당되지 않습니다.
+
+### 초기화
+
+```javascript
+let name; // 초기화 없이 선언 가능
+```
+
+- let으로 선언한 변수는 초기화 없이 선언할 수 있습니다. 이후 필요한 시점에 값을 할당할 수 있습니다.
+
+```javascript
+const name; // SyntaxError: Missing initializer in const declaration
+```
+
+- const로 선언한 변수는 반드시 선언과 동시에 값을 할당해야 합니다. 초기화 없이 선언하면 에러가 발생합니다.
+
+### 객체 및 배열의 할당
+
+```javascript
+const person = {
+  name: "jin",
+  age: 12,
+};
+person.name = "djf"; // 가능
+```
+
+- const로 선언한 변수에 객체나 배열을 할당한 경우, 해당 객체나 배열의 내부 값은 변경할 수 있습니다. 즉, 객체나 배열의 레퍼런스는 변경할 수 없지만 내부 값은 변경 가능합니다.
+
+```javascript
+const person = {
+  name: "jin",
+  age: 12,
+};
+person = {}; // TypeError: Assignment to constant variable.
+```
+
+- 하지만 const로 선언한 변수에 다른 객체나 배열을 할당하려고 하면 에러가 발생합니다. const는 변수의 레퍼런스를 변경할 수 없기 때문입니다.
+
+### 사용 용도
+
+- let: 값이 변경될 수 있는 경우에 사용합니다. 반면에 변수의 재선언은 피해야 합니다.
+- const: 값이 고정되어야 하는 경우에 사용합니다. 재할당이나 재선언이 발생하지 않는 경우에 사용하며, 불변성을 유지해야 하는 객체나 배열의 경우에도 사용합니다.
+
+## 개인적인 끄적임
 
 ```js
 var global = '전역'
